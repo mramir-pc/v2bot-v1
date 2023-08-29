@@ -968,9 +968,8 @@ if(preg_match('/createAccServer(\d+)/',$data, $match) && ($from_id == $admin || 
         alert("♻️ | دریافت دسته بندی ...");
         $keyboard[] = ['text' => $buttonValues['back_to_main'], 'callback_data' => "createMultipleAccounts"];
         $keyboard = array_chunk($keyboard,1);
-        editText($message_id, "2️⃣ مرحله دو:
-
-دسته بندی مورد نظرت رو انتخاب کن 🤭", json_encode(['inline_keyboard'=>$keyboard]));
+        editText($message_id, "2️⃣ مرحله دو :
+🔽 دسته بندی مورد نظرت رو انتخاب کن :", json_encode(['inline_keyboard'=>$keyboard]));
     }
 
 }
@@ -994,9 +993,8 @@ if(preg_match('/createAccCategory(\d+)_(\d+)/',$data,$match) && ($from_id == $ad
         }
         $keyboard[] = ['text' => $buttonValues['back_to_main'], 'callback_data' => "createAccServer$sid"];
         $keyboard = array_chunk($keyboard,1);
-        editText($message_id, "3️⃣ مرحله سه:
-
-یکی از پلن هارو انتخاب کن و برو برای پرداختش 🤲 🕋", json_encode(['inline_keyboard'=>$keyboard]));
+        editText($message_id, "3️⃣ مرحله سه :
+🔽 یکی از پلن ها رو انتخاب کنید و سپس فاکتور خود را پرداخت کنید :", json_encode(['inline_keyboard'=>$keyboard]));
     }
 
 }
@@ -1172,7 +1170,7 @@ if(preg_match('/^createAccAmount(\d+)_(\d+)_(\d+)/',$userInfo['step'], $match) &
         🔮 $remark \n <code>$vray_link</code>
             ";
             if($botState['subLinkState'] == "on") $acc_text .= 
-            " \n🌐 subscription : <code>$subLink</code>";
+            "\n🔗 لینک سابسکریبشن : \n<code>$subLink</code> \n\n📌 لینک کمکی : \n";
         
             $file = RandomString() .".png";
             QRcode::png($vray_link, $file, $ecc, $pixel_Size, $frame_Size);
@@ -1442,21 +1440,16 @@ if(preg_match('/havePaiedWeSwap(.*)/',$data,$match)) {
 
         $vraylink = getConnectionLink($server_id, $uniqid, $protocol, $remark, $port, $netType, $inbound_id, $rahgozar, $customPath, $customPort, $customSni);
         foreach($vraylink as $vray_link){
-        $acc_text = "
-        
-        😍 سفارش جدید شما
-        📡 پروتکل: $protocol
-        🔮 نام سرویس: $remark
-        🔋حجم سرویس: $volume گیگ
-        ⏰ مدت سرویس: $days روز
-        ⁮⁮ ⁮⁮
-        💝 config : <code>$vray_link</code>";
-        if($botState['subLinkState'] == "on") $acc_text .= "
-        
-        🌐 subscription : <code>$subLink</code>
-        
-        ";
-              
+        $acc_text = "فاکتور با موفقیت پرداخت شد و سرویس شما فعال گردید ✅
+
+🔅 نام سرویس : $remark
+📊 حجم سرویس : $volume گیگ
+📆 زمان سرویس : $days روز
+
+🔐 کانفیگ شما :⁮⁮
+<code>$vray_link</code>";
+        if($botState['subLinkState'] == "on") $acc_text .= "\n🔗 لینک سابسکریبشن : \n<code>$subLink</code> \n\n📌 لینک کمکی : \n";
+
             $file = RandomString() .".png";
             $ecc = 'L';
             $pixel_Size = 10;
@@ -2474,17 +2467,15 @@ if(preg_match('/payCustomWithWallet(.*)/',$data, $match)){
     $vraylink = getConnectionLink($server_id, $uniqid, $protocol, $remark, $port, $netType, $inbound_id, $rahgozar, $customPath, $customPort, $customSni);
     delMessage();
     foreach($vraylink as $vray_link){
-        $acc_text = "
-😍 سفارش جدید شما
-📡 پروتکل: $protocol
-🔮 نام سرویس: $remark
-🔋حجم سرویس: $volume گیگ
-⏰ مدت سرویس: $days روز
-⁮⁮ ⁮⁮
-💝 config : <code>$vray_link</code>";
-if($botState['subLinkState'] == "on") $acc_text .= "
+        $acc_text = "فاکتور با موفقیت پرداخت شد و سرویس شما فعال گردید ✅
 
-🌐 subscription : <code>$subLink</code>"; 
+🔅 نام سرویس : $remark
+📊 حجم سرویس : $volume گیگ
+📆 زمان سرویس : $days روز
+
+🔐 کانفیگ شما :⁮⁮
+<code>$vray_link</code>";
+if($botState['subLinkState'] == "on") $acc_text .= "\n🔗 لینک سابسکریبشن : \n<code>$subLink</code> \n\n📌 لینک کمکی : \n"; 
     
         $file = RandomString() .".png";
         $ecc = 'L';
@@ -2771,17 +2762,15 @@ if(preg_match('/accCustom(.*)/',$data, $match) and $text != $buttonValues['cance
 
     $vraylink = getConnectionLink($server_id, $uniqid, $protocol, $remark, $port, $netType, $inbound_id);
     foreach($vraylink as $vray_link){
-        $acc_text = "
-😍 سفارش جدید شما
-📡 پروتکل: $protocol
-🔮 نام سرویس: $remark
-🔋حجم سرویس: $volume گیگ
-⏰ مدت سرویس: $days روز
-⁮⁮ ⁮⁮
-💝 config : <code>$vray_link</code>";
-if($botState['subLinkState'] == "on") $acc_text .= "
+        $acc_text = "فاکتور با موفقیت پرداخت شد و سرویس شما فعال گردید ✅
 
-\n🌐 subscription : <code>$subLink</code>";
+🔅 نام سرویس : $remark
+📊 حجم سرویس : $volume گیگ
+📆 زمان سرویس : $days روز
+
+🔐 کانفیگ شما :⁮⁮
+<code>$vray_link</code>";
+if($botState['subLinkState'] == "on") $acc_text .= "\n🔗 لینک سابسکریبشن : \n<code>$subLink</code> \n\n📌 لینک کمکی : \n";
     
         $file = RandomString() .".png";
         $ecc = 'L';
@@ -3036,17 +3025,15 @@ if(preg_match('/payWithWallet(.*)/',$data, $match)){
 
             $vraylink = getConnectionLink($server_id, $uniqid, $protocol, $remark, $port, $netType, $inbound_id, $rahgozar, $customPath, $customPort, $customSni);
             foreach($vraylink as $vray_link){
-                $acc_text = "
-        😍 سفارش جدید شما
-        📡 پروتکل: $protocol
-        🔮 نام سرویس: $remark
-        🔋حجم سرویس: $volume گیگ
-        ⏰ مدت سرویس: $days روز
-        ⁮⁮ ⁮⁮
-        💝 config : <code>$vray_link</code>";
-        if($botState['subLinkState'] == "on") $acc_text .= "
-        
-        \n🌐 subscription : <code>$subLink</code>";
+                $acc_text = "فاکتور با موفقیت پرداخت شد و سرویس شما فعال گردید ✅
+
+🔅 نام سرویس : $remark
+📊 حجم سرویس : $volume گیگ
+📆 زمان سرویس : $days روز
+
+🔐 کانفیگ شما :⁮⁮
+<code>$vray_link</code>";
+        if($botState['subLinkState'] == "on") $acc_text .= "\n🔗 لینک سابسکریبشن : \n<code>$subLink</code> \n\n📌 لینک کمکی : \n";
             
                 $file = RandomString() .".png";
                 $ecc = 'L';
@@ -3502,17 +3489,15 @@ if(preg_match('/accept(.*)/',$data, $match) and $text != $buttonValues['cancel']
     
             $vraylink = getConnectionLink($server_id, $uniqid, $protocol, $remark, $port, $netType, $inbound_id, $rahgozar, $customPath, $customPort, $customSni);
             foreach($vraylink as $vray_link){
-                $acc_text = "
-        😍 سفارش جدید شما
-        📡 پروتکل: $protocol
-        🔮 نام سرویس: $remark
-        🔋حجم سرویس: $volume گیگ
-        ⏰ مدت سرویس: $days روز
-        ⁮⁮ ⁮⁮
-        💝 config : <code>$vray_link</code>";
-        if($botState['subLinkState'] == "on") $acc_text .= "
-        
-        \n🌐 subscription : <code>$subLink</code>";
+                $acc_text = "فاکتور با موفقیت پرداخت شد و سرویس شما فعال گردید ✅
+
+🔅 نام سرویس : $remark
+📊 حجم سرویس : $volume گیگ
+📆 زمان سرویس : $days روز
+
+🔐 کانفیگ شما :⁮⁮
+<code>$vray_link</code>";
+        if($botState['subLinkState'] == "on") $acc_text .= "\n🔗 لینک سابسکریبشن : \n<code>$subLink</code> \n\n📌 لینک کمکی : \n";
             
                 $file = RandomString() .".png";
                 $ecc = 'L';
@@ -4828,17 +4813,15 @@ if(preg_match('/freeTrial(\d+)/',$data,$match)) {
     $subLink = $botState['subLinkState']=="on"?$botUrl . "settings/subLink.php?token=" . $token:"";
     
     foreach($vraylink as $vray_link){
-        $acc_text = "
-😍 سفارش جدید شما
-📡 پروتکل: $protocol
-🔮 نام سرویس: $remark
-🔋حجم سرویس: $volume گیگ
-⏰ مدت سرویس: $days روز
-⁮⁮ ⁮⁮
-💝 config : <code>$vray_link</code>";
-if($botState['subLinkState'] == "on") $acc_text .= "
+        $acc_text = "فاکتور با موفقیت پرداخت شد و سرویس شما فعال گردید ✅
 
-\n🌐 subscription : <code>$subLink</code>";
+🔅 نام سرویس : $remark
+📊 حجم سرویس : $volume گیگ
+📆 زمان سرویس : $days روز
+
+🔐 کانفیگ شما :⁮⁮
+<code>$vray_link</code>";
+if($botState['subLinkState'] == "on") $acc_text .= "\n🔗 لینک سابسکریبشن : \n<code>$subLink</code> \n\n📌 لینک کمکی : \n";
     
         $file = RandomString().".png";
         $ecc = 'L';
@@ -5191,9 +5174,8 @@ if(preg_match('/sConfigRenew(\d+)/', $data,$match)){
         }
         $keyboard[] = ['text' => $buttonValues['back_to_main'], 'callback_data' => "mainMenu"];
         $keyboard = array_chunk($keyboard,1);
-        editText($message_id, "3️⃣ مرحله سه:
-
-یکی از پلن هارو انتخاب کن و برو برای پرداختش 🤲 🕋", json_encode(['inline_keyboard'=>$keyboard]));
+        editText($message_id, "3️⃣ مرحله سه :
+🔽 یکی از پلن ها رو انتخاب کنید و سپس فاکتور خود را پرداخت کنید :", json_encode(['inline_keyboard'=>$keyboard]));
     }else sendMessage("💡پلنی در این دسته بندی وجود ندارد ");
 }
 if(preg_match('/sConfigRenewPlan(\d+)_(\d+)/',$data, $match) && ($botState['sellState']=="on" ||$from_id ==$admin) && $text != $buttonValues['cancel']){
