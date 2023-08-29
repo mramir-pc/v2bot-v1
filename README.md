@@ -75,7 +75,7 @@ bash <(curl -s https://raw.githubusercontent.com/mramir-pc/v2bot/main/wizwiz.sh)
 
 - With every update and backup, a notification is sent to the manager robot
 ```
-bash <(curl -s https://raw.githubusercontent.com/wizwizdev/wizwizxui-timebot/main/update.sh)
+bash <(curl -s https://raw.githubusercontent.com/mramir-pc/v2bot/main/update.sh)
 ```
 
 <br>
